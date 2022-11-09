@@ -20,6 +20,6 @@ app.get('/', (req, res) => {
   res.send('2번 과제 제출 서버입니다.');
 });
 
-app.listen(HOST_PORT, () => {
+export const server = app.listen(HOST_PORT, () => {
   console.log(`listening on port ${HOST_PORT}`);
 });

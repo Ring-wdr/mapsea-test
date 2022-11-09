@@ -5,14 +5,19 @@ import { ORIGIN, MOCK_DB, option } from '../../config.js';
 const sqlite3 = SQL.verbose();
 
 export const getTotal = async (request, response) => {
-  const { data } = await axios.get(ORIGIN, option);
-  response.send(
-    data.response.result.chart.items.tracks.map((track) => ({
-      singer: track.artists[0].artistName,
-      song: track.trackTitle,
-      releaseDate: track.album.releaseDate,
-    }))
-  );
+  try {
+    const { data } = await axios.get(ORIGIN, option);
+
+    response.send(
+      data.response.result.chart.items.tracks.map((track) => ({
+        singer: track.artists[0].artistName,
+        song: track.trackTitle,
+        releaseDate: track.album.releaseDate,
+      }))
+    );
+  } catch (err) {
+    response.status(500).send(err);
+  }
 };
 
 export const postTotal = async (req, res) => {
